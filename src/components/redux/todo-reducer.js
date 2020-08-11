@@ -32,17 +32,19 @@ export const todoReducer = createReducer(initialState, {
     }
 
 });
+// thunk
 
-// Не делается запрос на сервер. Почему? Даже не вызывается функция.
-
-export const getTodos = () => (dispatch) => {
-    
-    dispatch(toggleFetching)
+export const getTodos = (e) => dispatch => {
+   console.log('Саночка работает!')
+    dispatch(toggleFetching())
     todoAPI.getTasks()
         .then(response => {
             dispatch(setTasks(response))
-            console.log(response)
-            dispatch(toggleFetching)
+            dispatch(toggleFetching())
         })
 } 
+
+
+
+
 
