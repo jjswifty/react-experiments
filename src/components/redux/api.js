@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 
-let WIDGET_ID = 226;
+export let WIDGET_ID = 226;
 
 // API
 
@@ -9,7 +9,7 @@ const instance = axios.create({
     baseURL: 'https://repetitora.net/api/JS/'
 });
 
-const imagesAPI = {
+export const imagesAPI = {
     getImages(page, count) {
         return instance.get(`Images?page=${page}&count=${count}`)
             .then(response => response.data)
@@ -39,7 +39,7 @@ export const todoAPI = {
         return instance.put(`Tasks`, {
                 widgetId,
                 taskId,
-                done
+                done // Bool
             })
             .then(response => response.data)
     }
