@@ -34,8 +34,8 @@ export const todoReducer = createReducer(initialState, {
 });
 // thunk
 
-export const getTodos = (e) => dispatch => {
-   console.log('Саночка работает!')
+export const getTodos = e => dispatch => {
+   
     dispatch(toggleFetching())
     todoAPI.getTasks()
         .then(response => {
@@ -48,3 +48,4 @@ export const getTodos = (e) => dispatch => {
 
 
 
+  
