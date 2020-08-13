@@ -6,11 +6,13 @@ export const newTodoText = createAction('NEW_TODO_TEXT')
 export const toggleFetching = createAction('TOGGLE_FETCHING')
 export const setTasks = createAction('SET_TASKS')
 export const setId = createAction('SET_ID')
+export const toggleTaskFetching = createAction('TOGGLE_TASK_FETCHING')
 
 let initialState = {
     taskCount: 0,
     newTodoText: '',
     isFetching: false,
+    isTaskFetching: false,
     tasks: [],
     widgetId: null
 };
@@ -35,6 +37,10 @@ export const todoReducer = createReducer(initialState, {
 
     [setId]: (state, action) => {
         state.widgetId = action.payload
+    },
+
+    [toggleTaskFetching]: (state) => {
+        state.isTaskFetching = !state.isTaskFetching
     }
 
 });
@@ -60,11 +66,20 @@ export const createTask = (widgetId, title) => dispatch => {
 }
 
 export const deleteTask = (widgetId, taskId) => dispatch => {
-    dispatch(toggleFetching())
+    dispatch(toggleTaskFetching())
     todoAPI.deleteTask(widgetId, taskId)
         .then(() => {
             dispatch(getTodos())
-            dispatch(toggleFetching())
+            dispatch(toggleTaskFetching())
+        })
+}
+
+export const toggleTask = (widgetId, taskId, done) => dispatch => {
+    dispatch(toggleTaskFetching())
+    todoAPI.toggleTask(widgetId, taskId, !done)
+        .then(() => {
+            dispatch(getTodos())
+            dispatch(toggleTaskFetching())
         })
 }
 

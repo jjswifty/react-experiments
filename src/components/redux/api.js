@@ -3,8 +3,7 @@ import * as axios from 'axios'
 export let WIDGET_ID = 226;
 
 // API
-
-
+  
 const instance = axios.create({
     baseURL: 'https://repetitora.net/api/JS/'
 });
