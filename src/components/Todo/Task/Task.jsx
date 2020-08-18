@@ -1,21 +1,33 @@
 import React from 'react'
+import s from './Task.module.sass'
+import { useState } from 'react'
 
 export const Task = (props) => {
-
+    const [butDisabled, setButDisabled] = useState(false)
+    const [checkboxDisabled, setCheckboxDisabled] = useState(false)
     const id = props.id
-    
-    return (
-        <div>
-            {props.taskText}
 
-            <button onClick={() => props.deleteTask(id)} disabled={props.isTaskFetching}>x</button>
+    const inputChange = e => {
+        //setCheckboxDisabled(true)
+        props.toggleTask(id, props.done)
+    }
+
+    //if (props.isTaskFetching !== checkboxDisabled) setCheckboxDisabled(false)
+    
+    const deleteTask = e => {
+        setButDisabled(true)
+        props.deleteTask(id)
+    }
+
+    return (
+        <div className={s.taskDiv}>
             <input type="checkbox" 
                 checked={props.done} 
-                onChange={() => props.toggleTask(id, props.done)} 
+                onChange={e => inputChange(e)} 
                 disabled={props.isTaskFetching}
             />
-
-            {props.done ? 'Завершено' : 'Не завершено'}
+            {props.taskText}
+            <button onClick={e => deleteTask(e)} disabled={butDisabled}>x</button>
         </div>
     )
 }
