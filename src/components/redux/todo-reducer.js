@@ -58,6 +58,7 @@ export const getTodos = () => dispatch => {
 
 export const createTask = (widgetId, title) => dispatch => {
     dispatch(toggleFetching())
+    dispatch(newTodoText(''))
     todoAPI.createTask(widgetId, title)
         .then(() => {
             dispatch(getTodos())
@@ -66,11 +67,11 @@ export const createTask = (widgetId, title) => dispatch => {
 }
 
 export const deleteTask = (widgetId, taskId) => dispatch => {
-    dispatch(toggleTaskFetching())
+    //dispatch(toggleTaskFetching())
     todoAPI.deleteTask(widgetId, taskId)
         .then(() => {
             dispatch(getTodos())
-            dispatch(toggleTaskFetching())
+            //dispatch(toggleTaskFetching())
         })
 }
 
