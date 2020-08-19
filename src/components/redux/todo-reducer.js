@@ -14,7 +14,7 @@ let initialState = {
     isFetching: false,
     isTaskFetching: false,
     tasks: [],
-    widgetId: null
+    widgetId: null,
 };
 
 export const todoReducer = createReducer(initialState, {
@@ -67,11 +67,9 @@ export const createTask = (widgetId, title) => dispatch => {
 }
 
 export const deleteTask = (widgetId, taskId) => dispatch => {
-    //dispatch(toggleTaskFetching())
     todoAPI.deleteTask(widgetId, taskId)
         .then(() => {
             dispatch(getTodos())
-            //dispatch(toggleTaskFetching())
         })
 }
 
