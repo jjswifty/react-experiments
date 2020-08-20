@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 export const Task = (props) => {
     const [butDisabled, setButDisabled] = useState(false)
-    //const [checkboxDisabled, setCheckboxDisabled] = useState(false)
+    const [checkboxDisabled, setCheckboxDisabled] = useState(false)
     const id = props.id
 
     const inputChange = e => {

@@ -1,6 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
-import { todoAPI } from './api'
-import { WIDGET_ID } from './api_keys'
+import { todoAPI, WIDGET_ID } from './api'
 
 export const addTodo = createAction('ADD_TODO')
 export const newTodoText = createAction('NEW_TODO_TEXT')
