@@ -47,7 +47,7 @@ export const Todo = (props) => {
         <div className={s.todo}>
             <h3>The API of server is laggy, that's why your requests will be so long.</h3>
             <div className={s.inputWithButton}>
-                <input value={state.newTodoText} onChange={onTextChange} className={inputClass}/>
+                <input value={state.newTodoText} onChange={onTextChange} className={inputClass} maxLength='30'/>
                 <button className = {s.inpButton} onClick={createNewTask} disabled={state.isFetching}>Create Task</button>
             </div>
             
