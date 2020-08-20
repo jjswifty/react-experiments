@@ -18,6 +18,8 @@ let initialState = {
     widgetId: null,
 };
 
+// Redux Toolkit позволяет изменять иммутабельные объекты без копирования (но внутри он все равно копирует)
+// дабы сократить boilerplate code
 export const todoReducer = createReducer(initialState, {
 
     [addTodo]: (state) => {
@@ -25,19 +27,19 @@ export const todoReducer = createReducer(initialState, {
     },
     
     [newTodoText]: (state, action) => {
-        state.newTodoText = action.payload
+        state.newTodoText    = action.payload
     },
 
     [toggleFetching]: (state) => {
-        state.isFetching = !state.isFetching
+        state.isFetching     = !state.isFetching
     },
 
     [setTasks]: (state, action) => {
-        state.tasks = action.payload
+        state.tasks          = action.payload
     },
 
     [setId]: (state, action) => {
-        state.widgetId = action.payload
+        state.widgetId       = action.payload
     },
 
     [toggleTaskFetching]: (state) => {
@@ -45,7 +47,8 @@ export const todoReducer = createReducer(initialState, {
     }
 
 });
-// thunk
+
+// thunks
 
 export const getTodos = () => dispatch => {
     dispatch(toggleFetching())
@@ -58,7 +61,7 @@ export const getTodos = () => dispatch => {
 } 
 
 export const createTask = (widgetId, title) => dispatch => {
-    dispatch(toggleFetching())
+    dispatch(toggleFetching()) 
     dispatch(newTodoText(''))
     todoAPI.createTask(widgetId, title)
         .then(() => {
