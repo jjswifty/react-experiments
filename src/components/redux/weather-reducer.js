@@ -8,7 +8,7 @@ export const setWeather = createAction('SET_WEATHER')
 
 let initialState = {
     position: {}, // latitude, longitude
-    currentTime: new Date().toLocaleTimeString().slice(-3), // like 11:23
+    currentTime: new Date().toLocaleTimeString(), // like 11:23
     location: {
         country: '',
         city: ''

@@ -15,10 +15,13 @@ const Navbar = (props) => {
             <div className={s.item }>
                 <NavLink to="/todo" activeClassName={s.active}>Todo</NavLink>
             </div>
-
+            <div className={s.item}>
+                <NavLink to="/weather" activeClassName={s.active}>Weather</NavLink>
+            </div>
             <div className={s.item}>
                 <NavLink to="/soon" activeClassName={s.active}>Soon...</NavLink>
             </div>
+            
             
         </nav>
 
