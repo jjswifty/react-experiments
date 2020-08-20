@@ -1,12 +1,19 @@
 import * as axios from 'axios'
-
-export let WIDGET_ID = 226;
+import { WIDGET_ID , WEATHER_API_KEY } from './api_keys'
 
 // API
   
 const instance = axios.create({
-    baseURL: 'https://repetitora.net/api/JS/'
+    baseURL: 'https://repetitora.net/api/JS/',
 });
+
+const weatherInstance = axios.create({
+    baseURL: 'https://api.climacell.co/v3/weather/',
+    withCredentials: true,
+    headers: {
+        'apikey': WEATHER_API_KEY
+    }
+})
 
 export const imagesAPI = {
     getImages(page, count) {
@@ -49,7 +56,7 @@ export const weatherAPI = {
         getRealTime(params) { // object with lat*, lon*, fields*, unit_system*, location_id?
             return weatherInstance.get(
                 `realtime?lat=${params.lat}&lon=${params.lon}&fields=${params.fields}&unit_system=${params.unit_system}`)
-                    .then(response => response)
+                    .then(response => response.data)
         }
     }
 }
