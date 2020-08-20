@@ -56,7 +56,7 @@ export const weatherAPI = {
         getRealTime(params) { // object with lat*, lon*, fields*, unit_system*, location_id?
             return weatherInstance.get(
                 `realtime?lat=${params.lat}&lon=${params.lon}&fields=${params.fields}&unit_system=${params.unit_system}`)
-                    .then(response => response)
+                    .then(response => response.data)
         }
     }
 }
