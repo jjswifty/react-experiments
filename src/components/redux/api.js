@@ -62,23 +62,14 @@ export const weatherAPI = {
 }
 
 export const geolocationAPI = {
-    getUserPosition(obj) {
-        if(!navigator.geolocation) {
-            obj.error = 'This browser does not support geolocation. '
-            return obj
+    getUserPosition() {
+        if (!navigator.geolocation) {
+            return {error: 'This browser does not support geolocation.'}
         }
-        else {
-            navigator.geolocation.getCurrentPosition(position => {
-                obj.latitude  = position.coords.latitude;
-                obj.longitude = position.coords.longitude;
-                return obj
-                }, 
-
-                () => {
-                    obj.error = 'Can not find geolocation. Probably you blocked it on your device. '
-                    return obj
-                }
-            )
-        }
+        return new Promise ((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject)
+        })
     },
 }
+
+window.geolocationAPI = geolocationAPI

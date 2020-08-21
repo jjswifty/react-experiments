@@ -1,20 +1,23 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
-import { weatherAPI } from './api'
+import { weatherAPI, geolocationAPI } from './api'
 
 export const setPosition = createAction('SET_POSITION')
 export const setTime = createAction('SET_TIME')
 export const setLocation = createAction('SET_LOCATION')
 export const setWeather = createAction('SET_WEATHER')
+export const togglePositionFetching = createAction('TOGGLE_POSITION_FETCHING')
+export const toggleWeatherFetching = createAction('TOGGLE_WEATHER_FETCHING')
 
 let initialState = {
     position: {}, // latitude, longitude
-    currentTime: new Date().toLocaleTimeString(), // like 11:23
+    currentTime: new Date().toLocaleTimeString(), // like 11:23:50
     location: {
         country: '',
         city: ''
     },
     weather: {}, // all info about location weather
-    isWeatherFetching: false
+    isWeatherFetching: false,
+    isPositionFetching: false,
 };
 
 export const weatherReducer = createReducer(initialState, {
@@ -33,11 +36,31 @@ export const weatherReducer = createReducer(initialState, {
 
     [setWeather]: (state, action) => {
         state.weather = action.payload
+    },
+
+    [toggleWeatherFetching]: (state) => {
+        state.isWeatherFetching = !state.isWeatherFetching
+    },
+
+    [togglePositionFetching]: (state) => {
+        state.isPositionFetching = !state.isPositionFetching
     }
 
 });
 
 // thunks
+
+export const getUserPosition = _ => dispatch => {
+    dispatch(togglePositionFetching)
+    geolocationAPI.getUserPosition()
+        .then(response => {
+            dispatch(setPosition({
+                latitude: response.coords.latitude,
+                longitude: response.coords.longitude
+            }))
+            dispatch(togglePositionFetching)
+        })
+}
 
 export const getWeatherForCurrentPos = () => dispatch => {
 
