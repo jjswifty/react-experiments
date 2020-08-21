@@ -60,11 +60,17 @@ export const getUserPosition = () => dispatch => {
             }))
             dispatch(togglePositionFetching())
         })
-        
 }
 
-export const getWeatherForCurrentPos = () => dispatch => {
-
+export const getWeatherForCurrentPos = (params) => dispatch => {
+    if (!params.latitude) return
+    dispatch(toggleWeatherFetching())
+    weatherAPI.present.getRealTime(params)
+        .then(response => {
+            console.log(response.data)
+            dispatch(setWeather(response.data))
+            dispatch(toggleWeatherFetching())
+        })
 } 
 
 

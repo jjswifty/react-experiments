@@ -54,13 +54,14 @@ export const todoAPI = {
 export const weatherAPI = {
     present: {
         getRealTime(params) { // object with lat*, lon*, fields*, unit_system*, location_id?
+            // todo: fix get, probably problems with api key.
             return weatherInstance.get(
-                `realtime?lat=${params.lat}&lon=${params.lon}&fields=${params.fields}&unit_system=${params.unit_system}`)
+                `realtime?lat=${params.latitude}&lon=${params.longitude}&fields=${params.fields.join(' ')}&unit_system=${params.unit_system}`)
                     .then(response => response.data)
         }
     }
 }
-
+window.weatherAPI = weatherAPI
 export const geolocationAPI = {
     getUserPosition() {
         if (!navigator.geolocation) {

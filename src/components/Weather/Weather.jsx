@@ -1,24 +1,31 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { geolocationAPI } from '../redux/api'
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserPosition } from '../redux/weather-reducer';
+import { getWeatherForCurrentPos } from './../redux/weather-reducer';
 
 
 export const Weather = (props) => {
     const state = useSelector(state => state.weatherReducer)
     const dispatch = useDispatch()
-    
+
     // todo: time must to be component!
-    // todo: dispatch geolocation. (withouth thunks)
+    // todo: dispatch geolocation. (withouth thunks) 
     useEffect(() => {
-       dispatch(getUserPosition())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        dispatch(getUserPosition())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-   
+    const weatherParams = {
+        fields: ['temp', 'feels_like', 'humidity'],
+        unit_system: 'si'
+    }
+    useEffect(() => {
+        dispatch(getWeatherForCurrentPos({ ...state.position, ...weatherParams  }))
+    }, [state.position])
+
     return (
         <div>
-            <span>Weather</span> 
+            <span>Weather</span>
             <span>Current time: {state.currentTime}</span>
             <p>
                 Your location is: {state.location.country + ', ' + state.location.city}
@@ -27,9 +34,10 @@ export const Weather = (props) => {
                 Weather today: {state.isWeatherFetching ? 'Loading..' : 'weather loaded.'}
             </div>
             {
-                state.isPositionFetching ? 'Loading...' : <p>Position is {'Latitude: ' + state.position.latitude + ', Longitude: ' + state.position.longitude}</p>
+                state.isPositionFetching ? 'Loading...' : <p>Position:
+                    {' Latitude: ' + state.position.latitude + ', Longitude: ' + state.position.longitude}</p>
             }
-            
+
         </div>
     )
 }
