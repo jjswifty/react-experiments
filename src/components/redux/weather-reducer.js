@@ -50,16 +50,17 @@ export const weatherReducer = createReducer(initialState, {
 
 // thunks
 
-export const getUserPosition = _ => dispatch => {
-    dispatch(togglePositionFetching)
+export const getUserPosition = () => dispatch => {
+    dispatch(togglePositionFetching())
     geolocationAPI.getUserPosition()
         .then(response => {
             dispatch(setPosition({
                 latitude: response.coords.latitude,
                 longitude: response.coords.longitude
             }))
-            dispatch(togglePositionFetching)
+            dispatch(togglePositionFetching())
         })
+        
 }
 
 export const getWeatherForCurrentPos = () => dispatch => {

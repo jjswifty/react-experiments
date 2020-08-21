@@ -72,4 +72,3 @@ export const geolocationAPI = {
     },
 }
 
-window.geolocationAPI = geolocationAPI
