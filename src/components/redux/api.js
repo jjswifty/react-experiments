@@ -28,7 +28,6 @@ export const imagesAPI = {
             .then(response => response.data)
     }
 }
-
 export const todoAPI = {
     getTasks(widgetId = WIDGET_ID, page = 1, count = 99) {
         return instance.get(`tasks?widgetId=${widgetId}&page=${page}&count=${count}`)

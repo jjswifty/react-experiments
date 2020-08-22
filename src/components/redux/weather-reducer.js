@@ -7,17 +7,16 @@ export const setLocation = createAction('SET_LOCATION')
 export const setWeather = createAction('SET_WEATHER')
 export const togglePositionFetching = createAction('TOGGLE_POSITION_FETCHING')
 export const toggleWeatherFetching = createAction('TOGGLE_WEATHER_FETCHING')
+export const togglePositionReceivedStatus = createAction('TOGGLE_POSITION_RECEIVED_STATUS')
 
 let initialState = {
     position: {}, // latitude, longitude
     currentTime: new Date().toLocaleTimeString(), // like 11:23:50
-    location: {
-        country: '',
-        city: ''
-    },
+    location: {}, // city, country
     weather: {}, // all info about location weather
     isWeatherFetching: false,
     isPositionFetching: false,
+    isPositionReceived: false,
 };
 
 export const weatherReducer = createReducer(initialState, {
@@ -38,13 +37,18 @@ export const weatherReducer = createReducer(initialState, {
         state.weather = action.payload
     },
 
-    [toggleWeatherFetching]: (state) => {
+    [toggleWeatherFetching]: state => {
         state.isWeatherFetching = !state.isWeatherFetching
     },
 
-    [togglePositionFetching]: (state) => {
+    [togglePositionFetching]: state => {
         state.isPositionFetching = !state.isPositionFetching
+    },
+
+    [togglePositionReceivedStatus]: state => {
+        state.isPositionReceived = !state.isPositionReceived
     }
+
 
 });
 
@@ -65,6 +69,7 @@ export const getUserPosition = () => dispatch => {
 export const getWeatherForCurrentPos = params => dispatch => {
     if (!params.latitude) return
     dispatch(toggleWeatherFetching())
+    console.log(params, 'bruh')
     weatherAPI.present.getRealTime(params)
         .then(response => {
             dispatch(setWeather(response))

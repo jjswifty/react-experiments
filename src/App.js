@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import s from './App.module.sass';
 import { Header } from './components/Header/Header';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -8,8 +9,8 @@ import { Soon } from './components/Soon/Soon';
 import { Weather } from './components/Weather/Weather';
 
 
+
 const App = () => {
-    
     return (
         <BrowserRouter>
             <div className={s.appWrapper}>
