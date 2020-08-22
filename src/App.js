@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import s from './App.module.sass';
 import { Header } from './components/Header/Header';
 import { BrowserRouter, Route } from 'react-router-dom';

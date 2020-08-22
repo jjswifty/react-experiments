@@ -68,7 +68,6 @@ export const getUserPosition = () => dispatch => {
 export const getWeatherForCurrentPos = params => dispatch => {
     if (!params.latitude) return
     dispatch(toggleWeatherFetching())
-    console.log(params, 'bruh')
     weatherAPI.present.getRealTime(params)
         .then(response => {
             dispatch(setWeather(response))
