@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect , useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { Time } from './Time/Time'
 import { getWeatherForCurrentPos, geocodeCurrentUserPosition, getUserPosition, togglePositionReceivedStatus } from './../redux/weather-reducer';
 
 // todo: time must to be component!
@@ -8,7 +9,7 @@ import { getWeatherForCurrentPos, geocodeCurrentUserPosition, getUserPosition, t
 export const Weather = (props) => {
     const state = useSelector(state => state.weatherReducer)
     const dispatch = useDispatch()
-
+    console.log('render compoentn')
     useEffect(() => { // Получаю геолокацию пользователя
         if (state.isPositionReceived) return
         dispatch(getUserPosition()) 
@@ -26,8 +27,8 @@ export const Weather = (props) => {
 
     return (
         <div>
-            <span>Weather<br /></span>
-            <span>Current time: {state.currentTime}</span>
+            <h3>Weather<br/></h3>
+            <Time />
             <p>
                 Your location is: {!state.location.country ? 'Loading...' : state.location.country + ', ' + state.location.city}
             </p>

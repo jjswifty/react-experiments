@@ -11,7 +11,6 @@ export const togglePositionReceivedStatus = createAction('TOGGLE_POSITION_RECEIV
 
 let initialState = {
     position: {}, // latitude, longitude
-    currentTime: new Date().toLocaleTimeString(), // like 11:23:50
     location: {}, // city, country
     weather: {}, // all info about location weather
     isWeatherFetching: false,
