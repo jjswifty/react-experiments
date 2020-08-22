@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
-import { weatherAPI, geolocationAPI } from './api'
+import { weatherAPI, geolocationAPI, yandexGeocodingAPI } from './api'
 
 export const setPosition = createAction('SET_POSITION')
 export const setTime = createAction('SET_TIME')
@@ -62,16 +62,26 @@ export const getUserPosition = () => dispatch => {
         })
 }
 
-export const getWeatherForCurrentPos = (params) => dispatch => {
+export const getWeatherForCurrentPos = params => dispatch => {
     if (!params.latitude) return
     dispatch(toggleWeatherFetching())
     weatherAPI.present.getRealTime(params)
         .then(response => {
-            console.log(response.data)
-            dispatch(setWeather(response.data))
+            dispatch(setWeather(response))
             dispatch(toggleWeatherFetching())
         })
 } 
+
+export const geocodeCurrentUserPosition = params => dispatch => {
+    if (!params.latitude) return
+    yandexGeocodingAPI.geocodeUserPosition(params)
+        .then(response => {
+            dispatch(setLocation({
+                country: response.description, 
+                city: response.name
+            }))
+        })
+}
 
 
 

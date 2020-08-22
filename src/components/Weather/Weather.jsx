@@ -1,8 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserPosition } from '../redux/weather-reducer';
-import { getWeatherForCurrentPos } from './../redux/weather-reducer';
+import { getWeatherForCurrentPos, geocodeCurrentUserPosition, getUserPosition } from './../redux/weather-reducer';
 
 
 export const Weather = (props) => {
@@ -23,6 +22,10 @@ export const Weather = (props) => {
         dispatch(getWeatherForCurrentPos({ ...state.position, ...weatherParams  }))
     }, [state.position])
 
+    useEffect(() => {
+        dispatch(geocodeCurrentUserPosition({...state.position}))
+    }, [state.position])
+
     return (
         <div>
             <span>Weather</span>
@@ -31,7 +34,7 @@ export const Weather = (props) => {
                 Your location is: {state.location.country + ', ' + state.location.city}
             </p>
             <div>
-                Weather today: {state.isWeatherFetching ? 'Loading..' : 'weather loaded.'}
+                Lifetime weather for your position: {state.isWeatherFetching ? 'Loading..' : !state.weather.temp ? '' : state.weather.temp.value + state.weather.temp.units}
             </div>
             {
                 state.isPositionFetching ? 'Loading...' : <p>Position:

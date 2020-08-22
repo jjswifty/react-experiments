@@ -1,5 +1,5 @@
 import * as axios from 'axios'
-import {WIDGET_ID, WEATHER_API_KEY} from './api_keys'
+import { WIDGET_ID, WEATHER_API_KEY, YANDEX_GEOCODER_API_KEY } from './api_keys'
 
 // API
   
@@ -9,10 +9,17 @@ const instance = axios.create({
 
 const weatherInstance = axios.create({
     baseURL: 'https://api.climacell.co/v3/weather/',
-    withCredentials: true,
     headers: {
         'apikey': WEATHER_API_KEY
     }
+})
+
+const yandexGeocodeInstance = axios.create({
+    baseURL: 'https://geocode-maps.yandex.ru/1.x/',
+    //withCredentials: true,
+    //headers: {
+    //    'apikey': YANDEX_GEOCODER_API_KEY
+    //}
 })
 
 export const imagesAPI = {
@@ -54,14 +61,16 @@ export const todoAPI = {
 export const weatherAPI = {
     present: {
         getRealTime(params) { // object with lat*, lon*, fields*, unit_system*, location_id?
-            // todo: fix get, probably problems with api key.
+            // todo: fix get, probably problems with api key. FIXED;
+            // todo: 1st join user must accept GPS tracking, 
+            // after this we must geocode his lat and lon using google API, and finally put his location in localStorage
             return weatherInstance.get(
-                `realtime?lat=${params.latitude}&lon=${params.longitude}&fields=${params.fields.join(' ')}&unit_system=${params.unit_system}`)
+                `realtime?lat=${params.latitude}&lon=${params.longitude}&fields=${params.fields.join('%2C')}&unit_system=${params.unit_system}`)
                     .then(response => response.data)
         }
     }
 }
-window.weatherAPI = weatherAPI
+
 export const geolocationAPI = {
     getUserPosition() {
         if (!navigator.geolocation) {
@@ -71,5 +80,12 @@ export const geolocationAPI = {
             navigator.geolocation.getCurrentPosition(resolve, reject)
         })
     },
+}
+
+export const yandexGeocodingAPI = {
+    geocodeUserPosition (position) {
+        return yandexGeocodeInstance.get(`?apikey=${YANDEX_GEOCODER_API_KEY}&format=json&geocode=${position.longitude},${position.latitude}`)
+            .then(response => response.data.response.GeoObjectCollection.featureMember[5].GeoObject)
+    }
 }
 
