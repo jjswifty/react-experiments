@@ -6,9 +6,8 @@ import { togglePositionReceivedStatus, getUserPosition, geocodeCurrentUserPositi
 export const UserLocation = (props) => {
     const dispatch = useDispatch()
     useEffect(() => { // Получаю геолокацию пользователя
-        if (props.isPositionReceived) return
-        dispatch(getUserPosition()) 
-        dispatch(togglePositionReceivedStatus())
+        if (!props.position.latitude) dispatch(getUserPosition()) 
+        //dispatch(togglePositionReceivedStatus())
     }, [])
     useEffect(() => {
         if (!props.location.city) dispatch(geocodeCurrentUserPosition({ ...props.position }))

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Time } from './Time/Time'
@@ -14,7 +13,7 @@ export const Weather = (props) => {
         fields: ['temp', 'feels_like', 'humidity'],
         unit_system: 'si'
     }
-    
+    console.log('render')
     return (
         <div>
             <h1>Weather</h1>

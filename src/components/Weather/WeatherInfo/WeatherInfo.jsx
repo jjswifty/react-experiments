@@ -6,7 +6,6 @@ import { getWeatherForCurrentPos } from '../../redux/weather-reducer'
 export const WeatherInfo = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
-        
         if (!props.weather.temp) dispatch(getWeatherForCurrentPos({ ...props.position, ...props.weatherParams }))
     }, [props.position])
 

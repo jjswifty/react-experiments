@@ -7,8 +7,6 @@ import { Todo } from './components/Todo/Todo';
 import { Soon } from './components/Soon/Soon';
 import { Weather } from './components/Weather/Weather';
 
-
-
 const App = () => {
     return (
         <BrowserRouter>
