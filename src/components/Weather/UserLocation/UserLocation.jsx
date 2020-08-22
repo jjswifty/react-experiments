@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { togglePositionReceivedStatus, getUserPosition, geocodeCurrentUserPosition } from '../../redux/weather-reducer'
+import { getUserPosition, geocodeCurrentUserPosition } from '../../redux/weather-reducer'
 
 export const UserLocation = (props) => {
     const dispatch = useDispatch()
     useEffect(() => { // Получаю геолокацию пользователя
         if (!props.position.latitude) dispatch(getUserPosition()) 
-        //dispatch(togglePositionReceivedStatus())
     }, [])
     useEffect(() => {
         if (!props.location.city) dispatch(geocodeCurrentUserPosition({ ...props.position }))

@@ -7,7 +7,6 @@ export const setLocation = createAction('SET_LOCATION')
 export const setWeather = createAction('SET_WEATHER')
 export const togglePositionFetching = createAction('TOGGLE_POSITION_FETCHING')
 export const toggleWeatherFetching = createAction('TOGGLE_WEATHER_FETCHING')
-export const togglePositionReceivedStatus = createAction('TOGGLE_POSITION_RECEIVED_STATUS')
 
 let initialState = {
     position: {}, // latitude, longitude
@@ -15,7 +14,6 @@ let initialState = {
     weather: {}, // all info about location weather
     isWeatherFetching: false,
     isPositionFetching: false,
-    isPositionReceived: false,
 };
 
 export const weatherReducer = createReducer(initialState, {
@@ -43,11 +41,6 @@ export const weatherReducer = createReducer(initialState, {
     [togglePositionFetching]: state => {
         state.isPositionFetching = !state.isPositionFetching
     },
-
-    [togglePositionReceivedStatus]: state => {
-        state.isPositionReceived = !state.isPositionReceived
-    }
-
 
 });
 
