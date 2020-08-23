@@ -4,9 +4,9 @@ import Navbar from './Navbar/Navbar';
 
 export const Header = (props) => {
     return (
-        <div className={s.content}>
-            <h1 className={s.title}>jjswift React experiments!</h1>
+        <nav className={s.content}>
+            <h1 className={s.title}>jjswift</h1>
             <Navbar />
-        </div>
+        </nav>
     )
 }

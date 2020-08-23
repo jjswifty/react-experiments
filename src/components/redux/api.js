@@ -84,7 +84,7 @@ export const geolocationAPI = {
 export const yandexGeocodingAPI = {
     geocodeUserPosition (position) {
         return yandexGeocodeInstance.get(`?apikey=${YANDEX_GEOCODER_API_KEY}&format=json&geocode=${position.longitude},${position.latitude}`)
-            .then(response => response.data.response.GeoObjectCollection.featureMember[5].GeoObject)
+            .then(response => response.data.response.GeoObjectCollection.featureMember[0].GeoObject)
     }
 }
 

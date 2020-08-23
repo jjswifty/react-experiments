@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { getWeatherForCurrentPos } from '../../redux/weather-reducer'
+import { getWeatherForCurrentPos } from '../../../redux/weather-reducer'
 
 export const WeatherInfo = (props) => {
     const dispatch = useDispatch()

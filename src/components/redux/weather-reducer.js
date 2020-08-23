@@ -7,6 +7,7 @@ export const setLocation = createAction('SET_LOCATION')
 export const setWeather = createAction('SET_WEATHER')
 export const togglePositionFetching = createAction('TOGGLE_POSITION_FETCHING')
 export const toggleWeatherFetching = createAction('TOGGLE_WEATHER_FETCHING')
+export const toggleGeocodeFetching = createAction('TOGGLE_GEOCODE_FETCHING')
 
 let initialState = {
     position: {}, // latitude, longitude
@@ -14,6 +15,7 @@ let initialState = {
     weather: {}, // all info about location weather
     isWeatherFetching: false,
     isPositionFetching: false,
+    isGeocodeFetching: false,
 };
 
 export const weatherReducer = createReducer(initialState, {
@@ -42,6 +44,10 @@ export const weatherReducer = createReducer(initialState, {
         state.isPositionFetching = !state.isPositionFetching
     },
 
+    [toggleGeocodeFetching]: state => {
+        state.isGeocodeFetching = !state.isGeocodeFetching
+    }
+
 });
 
 // thunks
@@ -56,6 +62,7 @@ export const getUserPosition = () => dispatch => {
             }))
             dispatch(togglePositionFetching())
         })
+         
 }
 
 export const getWeatherForCurrentPos = params => dispatch => {
@@ -70,12 +77,14 @@ export const getWeatherForCurrentPos = params => dispatch => {
 
 export const geocodeCurrentUserPosition = params => dispatch => {
     if (!params.latitude) return
+    dispatch(toggleGeocodeFetching())
     yandexGeocodingAPI.geocodeUserPosition(params)
         .then(response => {
             dispatch(setLocation({
                 country: response.description, 
                 city: response.name
             }))
+            dispatch(toggleGeocodeFetching())
         })
 }
 
