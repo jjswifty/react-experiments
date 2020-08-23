@@ -62,7 +62,8 @@ export const weatherAPI = {
         getRealTime(params) { // object with lat*, lon*, fields*, unit_system*, location_id?
             // todo: fix get, probably problems with api key. FIXED;
             // todo: 1st join user must accept GPS tracking, 
-            // after this we must geocode his lat and lon using google API, and finally put his location in localStorage
+            // after this we must geocode his lat and lon using google API, and finally put his location in localStorage X
+            // DENIED, user geolocation can be changed.
             return weatherInstance.get(
                 `realtime?lat=${params.latitude}&lon=${params.longitude}&fields=${params.fields.join('%2C')}&unit_system=${params.unit_system}`)
                     .then(response => response.data)

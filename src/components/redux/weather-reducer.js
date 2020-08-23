@@ -14,7 +14,7 @@ let initialState = {
     location: {}, // city, country
     weather: {}, // all info about location weather
     isWeatherFetching: false,
-    isPositionFetching: false,
+    isPositionFetching: true,
     isGeocodeFetching: false,
 };
 
@@ -53,7 +53,7 @@ export const weatherReducer = createReducer(initialState, {
 // thunks
 
 export const getUserPosition = () => dispatch => {
-    dispatch(togglePositionFetching())
+    
     geolocationAPI.getUserPosition()
         .then(response => {
             dispatch(setPosition({

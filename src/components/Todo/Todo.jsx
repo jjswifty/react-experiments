@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Task } from './Task/Task'
 import s from './Todo.module.sass'
 import cn from 'classnames'
+import { Preloader } from '../common/Preloader/Preloader'
 
 export const Todo = (props) => {
 
@@ -14,8 +15,8 @@ export const Todo = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getTodos())
-    }, [dispatch])
+        if(state.tasks.length === 0) dispatch(getTodos())
+    }, [dispatch, state.tasks.length])
 
     const onTextChange = e => {
         dispatch(newTodoText(e.target.value))
@@ -44,11 +45,20 @@ export const Todo = (props) => {
     }
 
     return (
+        
         <div className={s.todo}>
+            
             <h3>The API of server is laggy, that's why your requests will be so long.</h3>
             <div className={s.inputWithButton}>
                 <input value={state.newTodoText} onChange={onTextChange} className={inputClass}/>
+                <div className={s.buttonOrPreloader}>
+                {
+                state.isFetching ? 
+                <Preloader /> : 
                 <button className = {s.inpButton} onClick={createNewTask} disabled={state.isFetching}>Create Task</button>
+                }
+                </div>
+                
             </div>
             
             <div className={s.taskContainer}>

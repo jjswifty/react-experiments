@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getUserPosition, geocodeCurrentUserPosition } from '../../../redux/weather-reducer'
+import { Preloader } from '../../../common/Preloader/Preloader'
 
 export const UserLocation = (props) => {
     const dispatch = useDispatch()
@@ -12,9 +13,9 @@ export const UserLocation = (props) => {
         if (!props.location.city || !props.location.country) dispatch(geocodeCurrentUserPosition({ ...props.position }))
     }, [props.position])
     return (
-        <div>
+        <div style={{'display': 'flex'}}>
             Your location is: 
-            {props.isGeocodeFetching ? ' Loading..' : ` ${props.location.country}` }
+            {props.isGeocodeFetching ? <Preloader /> : ` ${props.location.country}` }
         </div>
     )
 }

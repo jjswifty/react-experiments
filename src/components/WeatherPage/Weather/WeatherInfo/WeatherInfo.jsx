@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getWeatherForCurrentPos } from '../../../redux/weather-reducer'
+import { Preloader } from '../../../common/Preloader/Preloader'
 
 export const WeatherInfo = (props) => {
     const dispatch = useDispatch()
@@ -10,9 +11,9 @@ export const WeatherInfo = (props) => {
     }, [props.position])
 
     return (
-        props.isWeatherFetching ? 'Lifetime weather for your position: Loading...' :
-        <div>
-            Lifetime weather for your position: {!props.weather.temp ? '' : props.weather.temp.value + props.weather.temp.units}
+        <div style={{'display': 'flex'}}>
+        Lifetime weather for your position:
+        {props.isWeatherFetching ? <Preloader /> : !props.weather.temp ? '' : props.weather.temp.value + props.weather.temp.units}
         </div>
     )
 }
